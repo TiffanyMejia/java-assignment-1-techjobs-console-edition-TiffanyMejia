@@ -94,32 +94,23 @@ public class JobData {
      * @return      List of all jobs with at least one field containing the value
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
-
         // load data, if not already loaded
         loadData();
+        // TODO - implement this method
+        ArrayList<HashMap<String, String>> searchedJobs = new ArrayList<>();
 
-//         TODO - implement this method
-        ArrayList<HashMap<String, String>> jobsValue = new ArrayList<>();
-        int match;
-        String lower = value.toLowerCase();
-        if(value.equals("")){
-            return allJobs;
-        }
-        for (HashMap<String, String> row: allJobs){//(int i = 0; i< allJobs.size();i++){
-            match = 0;
-            for(String key: row.keySet()){
-                String val = row.get(key);
-                int ind = val.toLowerCase().indexOf(lower);
-                if (ind != -1){//val.toLowerCase().contains(value.toLowerCase())
-//                    System.out.println(key);
-                    match++;
+        for(HashMap<String, String> row : allJobs) {
+            for(String key : row.keySet()) {
+                String searchedStr = row.get(key);
+
+                if(searchedStr.toLowerCase().contains(value.toLowerCase())) {
+                    searchedJobs.add(row);
+                    break;
                 }
             }
-            if(match > 0){
-                jobsValue.add(row);
-            }
         }
-        return jobsValue;
+
+        return searchedJobs;
     }
 
     /**
